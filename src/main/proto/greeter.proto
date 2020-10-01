@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package io.openliberty.sample;
+option java_multiple_files = true;
+
+service SampleService {
+    // unary method
+    rpc getGreeting (GreetingRequest) returns (GreetingResponse) {}
+}
+
+message GreetingRequest {
+  string name = 1;
+}
+
+message GreetingResponse {
+  string message = 1;
+}

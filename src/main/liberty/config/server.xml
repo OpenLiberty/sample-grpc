@@ -1,0 +1,48 @@
+<server>
+  <featureManager>
+    <feature>grpc-1.0</feature>
+    <feature>grpcClient-1.0</feature>
+    <feature>servlet-4.0</feature>
+    <feature>mpMetrics-2.3</feature>
+    <!-- uncomment to enable authentication and authorization support -->
+    <!-- <feature>appSecurity-3.0</feature> -->
+    <!-- uncomment to use TLS -->
+    <!-- <feature>transportSecurity-1.0</feature> -->
+  </featureManager>
+
+  <!-- Due to target="*" this configuration will be applied to every gRPC service running on the server. 
+       This configuration registers a ServerInterceptor -->
+  <grpc target="*" serverInterceptors="io.openliberty.grpc.interceptors.GreeterServiceInterceptor"/>
+
+  <!-- Due to host="*" this configuration will be applied to every gRPC client call that gets made. 
+       This configuration registers a ClientInterceptor, and it directs Cookie headers to get forwarded
+       with any outbound RPC calls - which in this case enables authorization propagation. -->
+  <grpcClient host="*" clientInterceptors="io.openliberty.grpc.interceptors.GreeterClientInterceptor" headersToPropagate="Cookie"/>
+
+  <httpEndpoint id="defaultHttpEndpoint"
+                httpPort="${httpPort}"
+                httpsPort="${httpsPort}"/>
+
+    <!-- Uncomment to enable TLS.  The outboundConnection will allow this config to get applied to gRPC client channels  -->
+    <!-- <ssl id="defaultSSLConfig" trustDefaultCerts="true" verifyHostname="false" sslProtocol="TLSv1.2">
+        <outboundConnection port="9443" host="*" />
+    </ssl>
+    <keyStore id="defaultKeyStore" password="passw0rd" /> -->
+
+  <basicRegistry id="basic" realm="sample-grpc">
+     <user name="user1" password="user1pwd" />
+     <user name="user2" password="user2pwd" />
+     <group name="Role1">
+       <member name="user1"/>
+     </group>
+     <group name="Role2">
+       <member name="user2"/>
+     </group>
+   </basicRegistry>
+
+  <mpMetrics authentication="false"/>
+
+  <application location="${sampleAppName}.war"/>
+
+  <logging traceSpecification="${traceSpec}" maxFiles="1" />
+</server>

@@ -1,0 +1,52 @@
+<web-app
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee web-app_3_0.xsd"
+    version="3.0">
+
+  <display-name>Liberty gRPC Sample App</display-name>
+  <description>Demonstrates Liberty's gRPC functionality</description>
+
+    <security-constraint id="SecurityConstraint_1">
+        <web-resource-collection id="WebResourceCollection_1">
+            <web-resource-name>allResources</web-resource-name>
+            <description>Requiring authentication for all resources when appSecurity is enabled</description>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint id="UserDataConstraint_1">
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+        <auth-constraint id="AuthConstraint_1">
+            <role-name>Role1</role-name>
+            <role-name>Role2</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>GeneralResources</web-resource-name>
+            <url-pattern>/login.html</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>AllUsers</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/login.html</form-login-page>
+            <form-error-page>/login.html</form-error-page>
+        </form-login-config>
+    </login-config>
+
+    <security-role id="SecurityRole_1">
+        <role-name>Role1</role-name>
+    </security-role>
+    <security-role id="SecurityRole_2">
+        <role-name>Role2</role-name>
+    </security-role>
+    <security-role id="AllUsers">
+        <role-name>AllUsers</role-name>
+    </security-role>
+</web-app>
