@@ -25,32 +25,28 @@ public class GreeterClientServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final Logger logger = Logger.getLogger(GreeterClientServlet.class.getName());
 
-    ManagedChannel channel;
-    private SampleServiceGrpc.SampleServiceBlockingStub greetingService = null;
-
     /**
-     * Build the gRPC channel and service stub needed for RPCs. 
+     * Build the gRPC channel needed for RPCs.
      * TLS is used if port 9443 is specified.
      */
-    private void startService(String address, int port) {
+    private ManagedChannel createChannel(ManagedChannel channel, String address, int port) {
         if (port != 9443) {
-            channel = ManagedChannelBuilder
-            .forAddress(address, port)
-            .usePlaintext()
-            .build();
+            return ManagedChannelBuilder
+                .forAddress(address, port)
+                .usePlaintext()
+                .build();
         } else {
-            channel = ManagedChannelBuilder
-            .forAddress(address, port)
-            .build();
+            return ManagedChannelBuilder
+                .forAddress(address, port)
+                .build();
         }
-        greetingService = SampleServiceGrpc.newBlockingStub(channel);
     }
 
     /**
      * Stop the gRPC channel
      */
-    private void stopService() {
-        channel.shutdownNow();  
+    private void stopService(ManagedChannel channel) {
+        channel.shutdownNow();
     }
 
     @Override
@@ -90,9 +86,13 @@ public class GreeterClientServlet extends HttpServlet {
         String user = request.getParameter("user");
         String address = request.getParameter("address");
         int port = Integer.parseInt(request.getParameter("port"));
+        ManagedChannel channel = null;
+        SampleServiceGrpc.SampleServiceBlockingStub greetingService = null;
+
         try {
-            startService(address, port);
-        
+            channel = createChannel(channel, address, port);
+            greetingService = SampleServiceGrpc.newBlockingStub(channel);
+
             // client side of the gRPC service is accessed via this servlet
             // create a gRPC User message to send to the server side service
             // the User class is derived from the HelloWorld.proto file being compiled into java code		
@@ -127,10 +127,26 @@ public class GreeterClientServlet extends HttpServlet {
                 .append("		</body>\r\n")
                 .append("</html>\r\n");
         } catch (Exception e) {
-            logger.info("Excpetion servicing gRPC request: " + e);
+            logger.info("Exception servicing gRPC request: " + e);
+            PrintWriter writer = response.getWriter();
+            writer.append("<!DOCTYPE html>\r\n")
+                .append("<html>\r\n")
+                .append("		<head>\r\n")
+                .append("			<title>Welcome message</title>\r\n")
+                .append("		</head>\r\n")
+                .append("		<body>\r\n")
+                .append("<h3>gRPC service Exception</h3>\r\n")
+                .append(e.toString())
+                .append(e.getMessage())
+                .append("\r\n")
+                .append("				<br/>\r\n")
+                .append("				<br/>\r\n")
+                .append("<form><input type=\"button\" value=\"Go back!\" onclick=\"history.back()\"></form>")
+                .append("		</body>\r\n")
+                .append("</html>\r\n");
             throw e;
         }finally {
-            stopService();
+            stopService(channel);
         }
     }
 }

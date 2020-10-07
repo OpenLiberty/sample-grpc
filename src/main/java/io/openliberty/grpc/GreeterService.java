@@ -20,7 +20,6 @@ public class GreeterService extends SampleServiceGrpc.SampleServiceImplBase {
     @Override
     @RolesAllowed("Role1")
     public void getGreeting(GreetingRequest req, StreamObserver<GreetingResponse> resp) {
-        System.out.println(InternalStatus.MESSAGE_KEY);
         StringBuilder builder = new StringBuilder();
         builder.append("Hello ");
         builder.append(req.getName());
