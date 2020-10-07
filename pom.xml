@@ -87,7 +87,7 @@
             <configuration>
               <!-- use nightly image until gRPC is available in a GA image -->
               <install>
-                <runtimeUrl>https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/nightly/2020-09-26_0300/openliberty-all-20.0.0.11-cl201120200926-0300.zip</runtimeUrl>
+                <runtimeUrl>https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/nightly/2020-10-07_1101/openliberty-dev-20.0.0.11-cl201120201007-1101.zip</runtimeUrl>
               </install>
               <bootstrapProperties>
                 <httpPort>9080</httpPort>
