@@ -4,8 +4,17 @@ package io.openliberty.sample;
 option java_multiple_files = true;
 
 service SampleService {
-    // unary method
+    // unary
     rpc getGreeting (GreetingRequest) returns (GreetingResponse) {}
+
+    // server streaming
+    rpc getServerStreamingGreeting (GreetingRequest) returns (stream GreetingResponse) {}
+
+    // client streaming
+    rpc getClientStreamingGreeting (stream GreetingRequest) returns (GreetingResponse) {}
+
+    // bidirectional streaming
+    rpc getBidirectionalGreeting (stream GreetingRequest) returns (stream GreetingResponse) {}
 }
 
 message GreetingRequest {
