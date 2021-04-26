@@ -1,0 +1,14 @@
+apiVersion: openliberty.io/v1beta1
+kind: OpenLibertyApplication
+metadata:
+  name: grpc-ocp-sample
+spec:
+  applicationImage: quay.io/arthurdm/grpc:wildcard
+  service:
+    port: 9443
+    portName: https
+    targetPort: 9443
+    type: ClusterIP
+  expose: true
+  route:
+    termination: passthrough

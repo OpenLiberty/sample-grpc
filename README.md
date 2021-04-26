@@ -9,4 +9,7 @@ Then browse to:
 http://localhost:9080/libertyGrpcSample/grpcClient
 
 Auth will be enforced if `appSecurity-3.0` is enabled [server.xml](src/main/liberty/config/server.xml). Login credentials are managed in the same file.
-```
+
+# Running on OpenShift
+
+
