@@ -27,10 +27,10 @@ public class GreeterClientServlet extends HttpServlet {
 
     /**
      * Build the gRPC channel needed for RPCs.
-     * TLS is used if port 9443 is specified.
+     * TLS is used if port 9443 or 443 is specified.
      */
     private ManagedChannel createChannel(ManagedChannel channel, String address, int port) {
-        if (port != 9443) {
+        if (port != 9443 && port != 443) {
             return ManagedChannelBuilder
                 .forAddress(address, port)
                 .usePlaintext()
