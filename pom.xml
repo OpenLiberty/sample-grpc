@@ -85,9 +85,8 @@
             <version>${openliberty.maven.version}</version>
             <extensions>true</extensions>
             <configuration>
-              <!-- use nightly image until gRPC is available in a GA image -->
               <install>
-                <runtimeUrl>https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/release/2020-11-11_0736/openliberty-20.0.0.12.zip</runtimeUrl>
+                <runtimeUrl>https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/release/2021-05-27_1900/openliberty-21.0.0.6.zip</runtimeUrl>
               </install>
               <bootstrapProperties>
                 <httpPort>9080</httpPort>
