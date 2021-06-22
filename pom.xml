@@ -13,9 +13,9 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <servlet.version>3.1.0</servlet.version>
-    <grpc.version>1.31.1</grpc.version>
-    <protoc.version>3.13.0</protoc.version>
-    <os-maven-plugin.version>1.6.1</os-maven-plugin.version>
+    <grpc.version>1.38.1</grpc.version>
+    <protoc.version>3.17.3</protoc.version>
+    <os-maven-plugin.version>1.7.0</os-maven-plugin.version>
     <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
   </properties>
   <dependencies>
