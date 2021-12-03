@@ -86,7 +86,7 @@
             <extensions>true</extensions>
             <configuration>
               <install>
-                <runtimeUrl>https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/release/2021-09-20_1900/openliberty-21.0.0.10.zip</runtimeUrl>
+                <runtimeUrl>https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/release/2021-11-17_1256/openliberty-21.0.0.12.zip</runtimeUrl>
               </install>
               <bootstrapProperties>
                 <httpPort>9080</httpPort>
